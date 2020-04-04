@@ -1,15 +1,24 @@
 <%- include("header") -%>
 
-  <div class="container">
-    <h1> Welcome to Node, Expreess Boilerplate </h1>
-    <h2> <%= msg %> </h2>
+  <div class="box" id="heading">
+    <h1> Todos </h1>
+  </div>
 
-    <section>
-      <form action="/" method="post">
-        <input type="text" name="name" id="name" placeholder="Enter your message...." required>
-        <button type="submit">Submit</button>
+  <div class="box todo-list">
+
+    <%  todos.forEach(function(todo){ %>
+      <form action="/delete" method="post">
+        <div class="item">
+          <input type="checkbox" name="id" value="<%=todo._id%>" onChange="this.form.submit()">
+          <p><%=todo.todo%></p>
+        </div>
       </form>
-    </section>
+    <%  }) %>
+
+    <form class="item" action="/" method="post">
+      <input type="text" name="newItem" placeholder="New Todo" autocomplete="off" required>
+      <button type="submit" name="list">+</button>
+    </form>
 
   </div>
 
