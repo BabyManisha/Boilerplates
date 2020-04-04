@@ -6,20 +6,24 @@
 
   <div class="box todo-list">
 
-    <%  todos.forEach(function(todo){ %>
-      <form action="/delete" method="post">
+    <% todos.forEach(function(todo, index){ %>
+      <form action="/user/delete" method="post">
         <div class="item">
-          <input type="checkbox" name="id" value="<%=todo._id%>" onChange="this.form.submit()">
-          <p><%=todo.todo%></p>
+          <input type="checkbox" name="index" value="<%=index%>" onChange="this.form.submit()">
+          <p><%=todo%></p>
         </div>
       </form>
     <%  }) %>
 
-    <form class="item" action="/" method="post">
+    <form class="item" action="/user/" method="post">
       <input type="text" name="newItem" placeholder="New Todo" autocomplete="off" required>
       <button type="submit" name="list">+</button>
     </form>
 
+  </div>
+
+  <div class="logout">
+    <a href="/logout">Logout</a>
   </div>
 
 <%- include("footer") -%>

@@ -1,8 +1,3 @@
-const DefaultTodos = [
-    { todo: 'Wake Up'},
-    { todo: 'Eat'},
-    { todo: 'Code'},
-    { todo: 'Sleep'}
-];
+const DefaultTodos = ['Wake Up', 'Eat', 'Code', 'Sleep'];
 
 module.exports = DefaultTodos;

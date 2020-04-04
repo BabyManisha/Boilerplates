@@ -2,64 +2,43 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const passport = require('passport');
+const session = require('express-session');
 require("dotenv").config()
 
-// Models
-const Todo = require("./models/todo");
-const DefaultTodos = require("./models/defaultTodos");
+// Routes
+const authRoutes = require("./routes/authRoutes");
+const userRoutes = require("./routes/userRoutes");
+
+// Authentication Middileware
+const isAuthenticated = require("./routes/isAuthenticated");
 
 const app = express();
 
-mongoose.connect(process.env.MONGOURL, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(process.env.MONGOURL, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 
 app.set('view engine', 'ejs');
-
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
+// User Session Initiatives
+app.use(session({
+    secret: process.env.MYSECRET,
+    resave: false,
+    saveUninitialized: false
+}));
 
-Todo.find({}, (err, todos) => {
-    if(err){
-        console.log("Something went wrong!!", err);
-    }else if(todos && todos.length <=0) {
-        Todo.insertMany(DefaultTodos, (err, newtodos) => {
-            if(err){
-                console.log("Something went wrong while initiating default todos!!", err);
-            }else{
-                console.log("Initiated ToDos");
-            }
-        });
-    }
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use("/auth", authRoutes);
+app.use("/user", isAuthenticated, userRoutes);
+app.get("/logout", (req, res) => {
+    req.logout();
+    res.redirect("/");
 });
-
-
-app.get('/', (req, res) => {
-    Todo.find({}, (err, todos) => {
-        if(err){
-            todos = [];
-            console.log("Something wentt wrong while getting Todos");
-        }else{
-            res.render('home', {todos: todos});
-        }
-    });
-});
-
-app.post('/', (req, res) => {
-    const todo = new Todo({ todo: req.body.newItem})
-    todo.save((err, newtodo) => {
-        res.redirect('/');
-    });
-});
-
-app.post('/delete', (req, res) => {
-    const id = req.body.id;
-    Todo.findByIdAndDelete({_id: id}, (err, todo) => {
-        if(err){
-            console.log("Error while deleting", err);
-        }else{
-            res.redirect('/');
-        }
-    })
+app.get("/", (req, res) => {
+    res.render('login');
 });
 
 app.listen(process.env.PORT || 3000, () => {
