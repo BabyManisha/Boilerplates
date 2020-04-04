@@ -58,10 +58,10 @@ router.get('/google',
 );
 
 router.get('/google/secrets', 
-    passport.authenticate('google', { failureRedirect: '/login' }),
+    passport.authenticate('google', { failureRedirect: '/' }),
     function(req, res) {
         // Successful authentication, redirect to secrets.
-        res.redirect('/user/');
+        res.redirect('/');
     });
 // for GoogleOAuth2.0 -- ENDs
 

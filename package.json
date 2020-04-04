@@ -2,9 +2,12 @@
   "name": "boilerplates",
   "version": "1.0.0",
   "description": "Boilerplates for Rapid App Development with Node, Express, EJS, Vue, MongDB, OAuth, etc",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "vue-cli-service lint",
+    "build": "vue-cli-service build",
+    "serve": "vue-cli-service serve"
   },
   "keywords": [
     "Boilerplates",
@@ -17,7 +20,10 @@
     "node": "12.11.0"
   },
   "dependencies": {
+    "@mdi/font": "^3.6.95",
+    "axios": "^0.19.2",
     "body-parser": "^1.18.3",
+    "core-js": "^3.6.4",
     "dotenv": "^8.2.0",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
@@ -26,6 +32,38 @@
     "mongoose-findorcreate": "^3.0.0",
     "passport": "^0.4.1",
     "passport-google-oauth20": "^2.0.0",
-    "passport-local-mongoose": "^6.0.1"
-  }
+    "passport-local-mongoose": "^6.0.1",
+    "roboto-fontface": "*",
+    "urlencode": "^1.1.0",
+    "vue": "^2.6.11",
+    "vuetify": "^2.2.11"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.2.0",
+    "@vue/cli-plugin-eslint": "~4.2.0",
+    "@vue/cli-service": "~4.2.0",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.1.2",
+    "vue-cli-plugin-vuetify": "^2.0.5",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
 }
