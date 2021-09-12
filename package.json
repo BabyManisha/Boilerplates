@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@mdi/font": "^3.6.95",
-    "axios": "^0.19.2",
+    "axios": "^0.21.2",
     "body-parser": "^1.18.3",
     "core-js": "^3.6.4",
     "dotenv": "^8.2.0",
